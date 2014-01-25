@@ -1,5 +1,5 @@
 {
-    "name": "Jakub Barta <jakub.barta@gmail.com>",
+    "name": "jb/jb",
     "version": "1.0.0",
     "require": {
         "php" : ">=5.3.2",
