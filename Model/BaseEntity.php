@@ -44,7 +44,8 @@ abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
     public function &__get($name) {
         $val = parent::__get($name);
         if (is_array($val)) {
-            return new ArrayCollection($val);
+            $col = new ArrayCollection($val);
+            return $col;
         }
         else {
             return $val;
