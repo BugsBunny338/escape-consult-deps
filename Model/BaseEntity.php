@@ -2,6 +2,7 @@
 
 namespace jb\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * 
  *
@@ -39,6 +40,17 @@ abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
         
         return $result;
     }
+    
+    public function &__get($name) {
+        $val = parent::__get($name);
+        if (is_array($val)) {
+            return new ArrayCollection($val);
+        }
+        else {
+            return $val;
+        }
+    }
+    
 
 }
 
