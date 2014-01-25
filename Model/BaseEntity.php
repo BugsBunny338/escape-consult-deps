@@ -7,33 +7,37 @@ namespace jb\Model;
  *
  * @author Jakub Bárta <jakub.barta@gmail.com>
  */
-abstract class BaseEntity extends \Nella\Doctrine\Entity {
+abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
 
     public function setValues($values = array()) {
         $values = (array) $values;
+        $properties = $this->getPropertiesNames();
 	foreach ($values as $k => $v) {
-	    if ($k != 'id'  && method_exists($this, "set".  ucfirst($k))) {
-		$k = ucfirst($k);
-		$this->{"set$k"}($v);
-	    }
-		
+	   	if (in_array($k, $properties)) {
+                       $this->$k = $v;
+                }
 	}
     }
     public function toArray() {
-        $reflection = new \ReflectionClass($this);
-        $publicMethods = $reflection->getMethods(\ReflectionMethod::IS_PUBLIC);
-        
-        $details = array();
-        
-        foreach ($publicMethods as $method) {
-            $propertyName = lcfirst(substr($method->getName(), 3));
-            if ((substr($method->getName(), 0, 3) == "get") and ($reflection->hasProperty($propertyName))) {
-                $details[$propertyName] = $this->{$method->getName()}();
-            }
+        $result = array();
+        foreach ($this->getPropertiesNames() as $name) {
+            
+            $result[$name] = $this->$name;
         }
-        $details['id'] = $this->getId();
+        $result['id'] = $this->getId();
         
-        return $details;
+        return $result;
+    }
+    
+    protected function getPropertiesNames() {
+        $reflection = new \ReflectionClass($this);
+        $result = array();
+        
+        foreach ($reflection->getProperties() as $reflectionProperty) {
+            $result[] = $reflectionProperty->name;
+        }
+        
+        return $result;
     }
 
 }
