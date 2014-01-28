@@ -33,9 +33,10 @@ abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
     protected function getPropertiesNames() {
         $reflection = new \ReflectionClass($this);
         $result = array();
-        
         foreach ($reflection->getProperties() as $reflectionProperty) {
-            $result[] = $reflectionProperty->name;
+            if (!$reflectionProperty->isStatic()) {
+                $result[] = $reflectionProperty->name;
+            }
         }
         
         return $result;
@@ -44,8 +45,8 @@ abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
     public function &__get($name) {
         $val = parent::__get($name);
         if (is_array($val)) {
-            $col = new ArrayCollection($val);
-            return $col;
+            $this->$name = new ArrayCollection($val);
+            return $this->$name;
         }
         else {
             return $val;
