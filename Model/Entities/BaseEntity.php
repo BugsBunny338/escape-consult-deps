@@ -1,6 +1,6 @@
 <?php
 
-namespace jb\Model;
+namespace jb\Model\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 /**
@@ -10,6 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
 
+    public function getRelations() {
+        return null;
+    }
+    
     public function setValues($values = array()) {
         $values = (array) $values;
         $properties = $this->getPropertiesNames();
