@@ -22,6 +22,12 @@ class Form extends \Nette\Application\UI\Form {
     public function addDatePicker($name, $label = NULL, $cols = NULL, $maxLength = NULL) {
 	return $this[$name] = new DatePicker($label, $cols, $maxLength);
     }
+    
+    public function addDateTimePicker($name, $label = NULL, $cols = NULL, $maxLength = NULL) {
+	return $this[$name] = new DateTimePicker($label, $cols, $maxLength);
+    }
+    
+    
     public function addEmail($name, $label = NULL, $cols = NULL, $maxLength = NULL) {
 	return $this[$name] = new EmailInput($label, $cols, $maxLength);
     }

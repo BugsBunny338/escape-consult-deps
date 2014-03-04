@@ -10,14 +10,14 @@ namespace jb\Form;
 
 use DateTime,
     Nette\Application\UI\Form,
-    Nette\Forms\Rule,
     Nette\Forms\Rules;
 
 class DatePicker extends \Nette\Forms\Controls\TextInput {
 
-    private $format = "d.m.Y";
-    private $exampleDt;
-    private $validDateMsg;
+    protected $format = "d.m.Y";
+    protected $exampleDt;
+    protected $class = "datepicker";
+    protected $validDateMsg;
 
     const VALIDATOR = "jb\Form\DatePicker::dateTimeValidator";
 
@@ -27,14 +27,14 @@ class DatePicker extends \Nette\Forms\Controls\TextInput {
 
     public function __construct($label = NULL, $cols = NULL, $maxLength = NULL) {
         parent::__construct($label, $cols, $maxLength);
-        $this->setAttribute("class", "datepicker");
+        $this->setAttribute("class", $this->class);
         $this->exampleDt = new DateTime("12.3.1985 12:50");
         $this->updateValidateMsg();
 
         $this->addCondition(Form::FILLED)->addRule(self::VALIDATOR, $this->validDateMsg);
     }
 
-    private function updateValidateMsg() {
+    protected function updateValidateMsg() {
         $this->validDateMsg = "Zadejte datum ve formátu $this->format, např. " . $this->exampleDt->format($this->format) . ".";
     }
 
