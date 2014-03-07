@@ -7,7 +7,6 @@
  */
 namespace jb\Form;
 
-use Nette\Application\UI\Form;
 
 class EmailInput extends \Nette\Forms\Controls\TextInput {
     const VALID_EMAIL = "Zadejte platnou e-mailovou adresu.";

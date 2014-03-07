@@ -9,7 +9,6 @@
 namespace jb\Form;
 
 use DateTime,
-    Nette\Application\UI\Form,
     Nette\Forms\Rules;
 
 class DatePicker extends \Nette\Forms\Controls\TextInput {

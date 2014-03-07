@@ -6,7 +6,7 @@ namespace jb\Form;
  *
  * @author Jakub Barta <jakub.barta@gmail.com>
  */
-class DateTimePicker extends DatePicker{
+class DateTimePicker extends DatePicker {
     protected $class = "datetimepicker";
     protected $format = "d.m.Y H:i";
          
