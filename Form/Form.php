@@ -38,12 +38,17 @@ class Form extends \Nette\Application\UI\Form {
         $this->bootstrapRendering = $val;
     }
     
+        public function addClass($class) {
+        $this->getElementPrototype()->class .= " $class";
+    }
+    
     public function render() {
         if (!$this->bootstrapRendering) {
             parent::render();
         }
         else {
-            $renderer = $this->getRenderer();
+            $renderer = new BootstrapRenderer();
+            $this->setRenderer($renderer);
             $renderer->wrappers['controls']['container'] = NULL;
             $renderer->wrappers['pair']['container'] = 'div class=form-group';
             $renderer->wrappers['pair']['.error'] = 'has-error';
@@ -51,9 +56,12 @@ class Form extends \Nette\Application\UI\Form {
             $renderer->wrappers['label']['container'] = 'div class="col-sm-3 control-label"';
             $renderer->wrappers['control']['description'] = 'span class=help-block';
             $renderer->wrappers['control']['errorcontainer'] = 'span class=help-block';
+            
+            $renderer->wrappers['error']['container'] = 'div class=has-error';
+            $renderer->wrappers['error']['item'] = 'span class=help-block';
 
             // make form and controls compatible with Twitter Bootstrap
-            $this->getElementPrototype()->class('form-horizontal');
+            $this->addClass('form-horizontal');
 
             foreach ($this->getControls() as $control) {
                     if ($control instanceof \Nette\Forms\Controls\Button) {
