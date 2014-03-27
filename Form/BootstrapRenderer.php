@@ -15,7 +15,7 @@ class BootstrapRenderer extends \Nette\Forms\Rendering\DefaultFormRenderer {
      * @param  string 'begin', 'errors', 'ownerrors', 'body', 'end' or empty to render all
      * @return string
      */
-    public function render(Nette\Forms\Form $form, $mode = NULL) {
+    public function render(\Nette\Forms\Form $form, $mode = NULL) {
         if ($this->form !== $form) {
             $this->form = $form;
             $this->init();
