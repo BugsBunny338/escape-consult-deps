@@ -34,6 +34,10 @@ class Form extends \Nette\Application\UI\Form {
 	return $this[$name] = new EmailInput($label, $cols, $maxLength);
     }
     
+    public function addClassSelect($name, $label, $items, $facade) {
+        return $this[$name] = new ClassSelect($label, $items, $facade);
+    }
+    
     public function setBootstrapRendering($val = true) {
         $this->bootstrapRendering = $val;
     }
@@ -69,7 +73,7 @@ class Form extends \Nette\Application\UI\Form {
                             $usedPrimary = TRUE;
 
                     } elseif ($control instanceof \Nette\Forms\Controls\TextBase || $control instanceof \Nette\Forms\Controls\SelectBox || $control instanceof \Nette\Forms\Controls\MultiSelectBox) {
-                            $control->setAttribute('class', 'form-control');
+                            $control->setAttribute('class', $control->getControlPrototype()->class.' form-control selectpicker');
 
                     } elseif ($control instanceof \Nette\Forms\Controls\Checkbox || $control instanceof \Nette\Forms\Controls\CheckboxList || $control instanceof \Nette\Forms\Controls\RadioList) {
                             $control->getSeparatorPrototype()->setName('div')->class($control->getControlPrototype()->type);
