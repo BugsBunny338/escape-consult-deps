@@ -1,6 +1,9 @@
 <?php
 
 namespace jb\Model\Services;
+
+use jb\Model\Entities\BaseEntity;
+
 /**
  * Description of BaseService
  *
@@ -15,6 +18,11 @@ abstract class BaseService {
     
     public function buildFromFormData($data) {
         $entity = new $this->className;
+        $entity->setValues($data);
+        return $entity;
+    }
+    
+    public function updateFromFormData(BaseEntity $entity, $data) {
         $entity->setValues($data);
         return $entity;
     }
