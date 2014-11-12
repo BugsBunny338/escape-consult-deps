@@ -19,7 +19,14 @@ abstract class BaseEntity extends \Kdyby\Doctrine\Entities\IdentifiedEntity {
         $properties = $this->getPropertiesNames();
 	foreach ($values as $k => $v) {
 	   	if (in_array($k, $properties)) {
-                       $this->$k = $v;
+                    $setterName = "set".ucfirst($k);
+                    $reflection = new \ReflectionClass($this);
+                    if ($reflection->hasMethod($setterName)) {
+                        $this->{$setterName}($v);
+                    }
+                    else {
+                        $this->$k = $v;
+                    }
                 }
 	}
     }
