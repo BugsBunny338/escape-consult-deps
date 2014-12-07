@@ -14,15 +14,30 @@ class BaseFacade extends \Nette\Object {
     /** @var EntityDao */
     protected $dao;
     
+    public function startTransaction() {
+        $this->dao->getEntityManager()->beginTransaction();
+    }
+    
+    public function commit() {
+        $this->dao->getEntityManager()->commit();
+    }
+    
+    public function rollback() {
+        $this->dao->getEntityManager()->rollback();
+    }
+    
     public function __construct(EntityDao $dao) {
         $this->dao = $dao;
     }
     
     public function create(BaseEntity $entity) {
         try {
+            $this->startTransaction();
             $this->doCreate($entity);
+            $this->commit();
         }
         catch (\Exception $e) {
+            $this->rollback();
             throw $this->handleDBException($e);
         }
     }
@@ -33,9 +48,12 @@ class BaseFacade extends \Nette\Object {
     
     public function update(BaseEntity $entity) {
         try {
+            $this->startTransaction();
             $this->doUpdate($entity);
+            $this->commit();
         }
         catch (\Exception $e) {
+            $this->rollback();
             throw $this->handleDBException($e);
         }
     }
@@ -47,9 +65,12 @@ class BaseFacade extends \Nette\Object {
 
     public function remove(BaseEntity $entity) {
         try {
+            $this->startTransaction();
             $this->doRemove($entity);
+            $this->commit();
         }
         catch (\Exception $e) {
+            $this->rollback();
             throw $this->handleDBException($e);
         }
     }
