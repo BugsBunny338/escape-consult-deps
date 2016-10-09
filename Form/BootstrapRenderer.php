@@ -18,7 +18,6 @@ class BootstrapRenderer extends \Nette\Forms\Rendering\DefaultFormRenderer {
     public function render(\Nette\Forms\Form $form, $mode = NULL) {
         if ($this->form !== $form) {
             $this->form = $form;
-            $this->init();
         }
         $s = '';
         if (!$mode || $mode === 'begin') {
