@@ -1,11 +1,11 @@
 {
-    "name": "jb/jb",
+    "name": "bugsbunny338/escape-consult-deps",
     "version": "1.2.0",
     "require": {
         "php" : ">=5.3.2",
         "nette/nette": "@dev",
         "kdyby/doctrine": "@dev"
-        
+
     },
     "autoload": {
         "psr-0": {
